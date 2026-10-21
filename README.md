@@ -32,11 +32,11 @@ Chaque panne a une cause unique et des indices concordants : pressions, surchauf
 
 ## Les chiffres
 
-- **R448A / R449A** : table de saturation constructeur (Honeywell / Chemours, recoupée sur les tables CoolProp 8), en bar relatifs, colonnes bulle et rosée.
+- **R448A / R449A** : table de saturation en bar relatifs (colonnes bulle et rosée), publiée par [liventolife.com](https://liventolife.com/hvac/r-448a-pt-chart) sous CC BY 4.0, recoupée sur les charts Honeywell / Chemours.
 - **R744** : table CoolProp, en bar relatifs. Au-dessus du point critique, la jauge affiche `transcritique` au lieu d'une température de condensation.
 - Les températures affichées sous les manomètres sont interpolées à partir de la pression mesurée — pas des valeurs décoratives.
 
-Le calcul direct d'un mélange R448A avec CoolProp en mode HEOS dérive de ~18 % sur les tables constructeur : il a été écarté au profit des tables publiées.
+Le calcul direct d'un mélange R448A avec CoolProp en mode HEOS dérive de plus de 20 % sur les tables constructeur : il a été écarté au profit des tables publiées.
 
 ## Technique
 
