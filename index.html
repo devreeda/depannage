@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DÉPANNAGE — le jeu du frigoriste</title>
+<meta name="description" content="Six pannes, un manifold, un client qui n'a pas que ça à faire. Un jeu de diagnostic frigorifique : positif, négatif, split, CO2 transcritique, électricité.">
+<meta name="theme-color" content="#060a12">
+<meta property="og:title" content="DÉPANNAGE — le jeu du frigoriste">
+<meta property="og:description" content="Six pannes. Un manifold. Un client qui n'a pas que ça à faire.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://devreeda.github.io/depannage/">
+<meta property="og:image" content="https://devreeda.github.io/depannage/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<div class="app">
+  <header class="topbar">
+    <button class="brand" id="brandBtn" aria-label="Retour à l'accueil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M12 2v20M3.4 7l17.2 10M20.6 7L3.4 17M12 2l-2.1 2.1M12 2l2.1 2.1M12 22l-2.1-2.1M12 22l2.1-2.1"/>
+      </svg>
+      <span>DÉPANNAGE<em>°</em></span>
+    </button>
+    <div class="top-actions">
+      <span class="pill" id="donePill" hidden></span>
+      <button class="icon-btn" id="soundBtn" aria-label="Activer le son" title="Son">
+        <svg class="ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+        <svg class="ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ACCUEIL -->
+    <section class="screen on" id="s-home">
+      <div class="hero">
+        <p class="eyebrow"><span class="dot"></span> Simulateur de dépannage frigorifique</p>
+        <h1>DÉPANNAGE<span class="deg">°</span></h1>
+        <p class="lede">Six pannes. Un manifold. Un client qui n'a pas que ça à faire. <br>Trouve ce qui déconne avant que le patron appelle.</p>
+      </div>
+
+      <div class="mode-row">
+        <span class="mode-label">Mode</span>
+        <div class="seg" id="modeSeg" role="radiogroup" aria-label="Mode de jeu">
+          <button data-mode="apprenti" class="on" role="radio" aria-checked="true">Apprenti</button>
+          <button data-mode="expert" role="radio" aria-checked="false">Expert</button>
+        </div>
+        <p class="mode-hint" id="modeHint">Les fourchettes normales s'affichent à côté des mesures.</p>
+      </div>
+
+      <div class="levels" id="levels"></div>
+
+      <div class="home-foot">
+        <p><b>6 pannes</b> · froid positif, négatif, split, CO2 transcritique, électricité</p>
+        <p class="tiny">Pressions de saturation R448A/R449A et R744 issues des tables constructeur. Aucune IA n'a été maltraitée.</p>
+      </div>
+    </section>
+
+    <!-- BRIEFING -->
+    <section class="screen" id="s-brief">
+      <button class="back" id="briefBack">← Retour</button>
+      <div class="brief">
+        <div class="brief-head">
+          <span class="num" id="briefNum">01</span>
+          <div>
+            <p class="eyebrow" id="briefPlace"></p>
+            <h2 id="briefTitle"></h2>
+          </div>
+        </div>
+        <div class="gear" id="briefGear"></div>
+        <blockquote class="call" id="briefCall"></blockquote>
+        <p class="client" id="briefClient"></p>
+        <ul class="symptoms" id="briefSymptoms"></ul>
+        <button class="cta" id="beginBtn">Démarrer l'intervention <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- JEU -->
+    <section class="screen" id="s-play">
+      <div class="play-head">
+        <div class="play-title">
+          <span class="num" id="playNum">01</span>
+          <div>
+            <h2 id="playTitle"></h2>
+            <p id="playGear"></p>
+          </div>
+        </div>
+        <div class="clock">
+          <b id="clock">07:12</b>
+          <span id="elapsed">sur site · 0 min</span>
+        </div>
+        <button class="cta small" id="dxBtn">Poser le diagnostic</button>
+      </div>
+
+      <div class="play-grid">
+        <aside class="panel instr">
+          <div class="panel-head"><span>Instrumentation</span><span class="live"><i></i> en direct</span></div>
+          <div id="instr"></div>
+        </aside>
+
+        <section class="panel acts">
+          <div class="panel-head"><span>Que fais-tu ?</span><span class="muted" id="actCount">0 mesure</span></div>
+          <div id="actionGroups"></div>
+        </section>
+
+        <aside class="panel log">
+          <div class="panel-head"><span>Carnet de mesures</span><span class="muted" id="logCount">0 relevé</span></div>
+          <div class="rows" id="rows"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- RESULTAT -->
+    <section class="screen" id="s-result">
+      <div id="resultBody"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Assemblé par <b>Michel</b> — une IA — en une soirée.</span>
+    <span class="sep">·</span>
+    <span>zéro framework, zéro backend</span>
+    <span class="sep">·</span>
+    <button class="link" id="resetBtn">réinitialiser les scores</button>
+  </footer>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">Poser le diagnostic</h3>
+      <button class="icon-btn" id="modalClose" aria-label="Fermer">✕</button>
+    </div>
+    <p class="modal-sub" id="modalSub">Une seule réponse. Le patron ne te laissera pas rappeler le client.</p>
+    <div class="choices" id="choices"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<noscript><p style="padding:2rem;color:#fff">Ce jeu a besoin de JavaScript. Promis, il n'y a rien de louche dedans.</p></noscript>
+
+<script src="pt.js"></script>
+<script src="data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
